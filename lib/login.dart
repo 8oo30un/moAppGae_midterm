@@ -40,8 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                 const Text('SHRINE'),
               ],
             ),
-            const SizedBox(height: 120.0),
-            // TODO: Remove filled: true values (103)
+            const SizedBox(height: 12.0),
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
@@ -62,7 +61,6 @@ class _LoginPageState extends State<LoginPage> {
             OverflowBar(
               alignment: MainAxisAlignment.center,
               children: <Widget>[
-                // TODO: Add a beveled rectangular border to CANCEL (103)
                 TextButton(
                   child: const Text('CANCEL'),
                   onPressed: () {
@@ -76,8 +74,6 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.pushNamed(context, '/signup'); // 변경된 부분
                   },
                 ),
-                // TODO: Add an elevation to NEXT (103)
-                // TODO: Add a beveled rectangular border to NEXT (103)
                 ElevatedButton(
                   child: const Text('NEXT'),
                   onPressed: () {
