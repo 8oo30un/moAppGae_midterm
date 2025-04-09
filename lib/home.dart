@@ -70,20 +70,28 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 2.0),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/detail',
-                            arguments: product);
-                      },
-                      child: const Text(
-                        'more',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 10.0, // 텍스트 크기 작게 설정
-                          color: Colors.blue, // 파란색 텍스트
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/detail',
+                              arguments: product,
+                            );
+                          },
+                          child: const Text(
+                            'more',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 10.0,
+                              color: Colors.blue,
+                            ),
+                          ),
                         ),
-                      ),
-                    )
+                      ],
+                    ),
                   ],
                 ),
               ),
