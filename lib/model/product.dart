@@ -26,6 +26,7 @@ class Product {
     required this.isFeatured,
     required this.name,
     required this.price,
+    required this.location,
   });
 
   final Category category;
@@ -33,6 +34,7 @@ class Product {
   final bool isFeatured;
   final String name;
   final int price;
+  final String location; // Add location to product data
 
   String get assetName => '$id-0.jpg';
   String get assetPackage => 'shrine_images';

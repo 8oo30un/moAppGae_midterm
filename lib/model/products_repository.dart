@@ -23,6 +23,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Vagabond sack',
         price: 120,
+        location: 'New York',
       ),
       Product(
         category: Category.accessories,
@@ -30,6 +31,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Stella sunglasses',
         price: 58,
+        location: 'New York',
       ),
       Product(
         category: Category.accessories,
@@ -37,6 +39,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Whitney belt',
         price: 35,
+        location: 'New York',
       ),
       Product(
         category: Category.accessories,
@@ -44,6 +47,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Garden strand',
         price: 98,
+        location: 'New York',
       ),
       Product(
         category: Category.accessories,
@@ -51,6 +55,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Strut earrings',
         price: 34,
+        location: 'New York',
       ),
       Product(
         category: Category.accessories,
@@ -58,6 +63,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Varsity socks',
         price: 12,
+        location: 'New York',
       ),
       Product(
         category: Category.accessories,
@@ -65,6 +71,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Weave keyring',
         price: 16,
+        location: 'New York',
       ),
       Product(
         category: Category.accessories,
@@ -72,6 +79,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Gatsby hat',
         price: 40,
+        location: 'New York',
       ),
       Product(
         category: Category.accessories,
@@ -79,6 +87,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Shrug bag',
         price: 198,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -86,6 +95,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Gilt desk trio',
         price: 58,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -93,6 +103,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Copper wire rack',
         price: 18,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -100,6 +111,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Soothe ceramic set',
         price: 28,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -107,6 +119,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Hurrahs tea set',
         price: 34,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -114,6 +127,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Blue stone mug',
         price: 18,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -121,6 +135,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Rainwater tray',
         price: 27,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -128,6 +143,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Chambray napkins',
         price: 16,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -135,6 +151,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Succulent planters',
         price: 16,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -142,6 +159,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Quartet table',
         price: 175,
+        location: 'New York',
       ),
       Product(
         category: Category.home,
@@ -149,6 +167,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Kitchen quattro',
         price: 129,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -156,6 +175,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Clay sweater',
         price: 48,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -163,6 +183,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Sea tunic',
         price: 45,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -170,6 +191,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Plaster tunic',
         price: 38,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -177,6 +199,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'White pinstripe shirt',
         price: 70,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -184,6 +207,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Chambray shirt',
         price: 70,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -191,6 +215,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Seabreeze sweater',
         price: 60,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -198,6 +223,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Gentry jacket',
         price: 178,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -205,6 +231,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Navy trousers',
         price: 74,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -212,6 +239,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Walter henley (white)',
         price: 38,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -219,6 +247,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Surf and perf shirt',
         price: 48,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -226,6 +255,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Ginger scarf',
         price: 98,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -233,6 +263,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Ramona crossover',
         price: 68,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -240,6 +271,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Chambray shirt',
         price: 38,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -247,6 +279,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Classic white collar',
         price: 58,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -254,6 +287,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Cerise scallop tee',
         price: 42,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -261,6 +295,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Shoulder rolls tee',
         price: 27,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -268,6 +303,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Grey slouch tank',
         price: 24,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -275,6 +311,7 @@ class ProductsRepository {
         isFeatured: false,
         name: 'Sunshirt dress',
         price: 58,
+        location: 'New York',
       ),
       Product(
         category: Category.clothing,
@@ -282,6 +319,7 @@ class ProductsRepository {
         isFeatured: true,
         name: 'Fine lines tee',
         price: 58,
+        location: 'New York',
       ),
     ];
     if (category == Category.all) {
