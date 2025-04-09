@@ -101,10 +101,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   TextButton(
                     child: const Text('CANCEL'),
                     onPressed: () {
-                      _usernameController.clear();
-                      _emailController.clear();
-                      _passwordController.clear();
-                      _confirmPasswordController.clear();
+                      // _usernameController.clear();
+                      // _emailController.clear();
+                      // _passwordController.clear();
+                      // _confirmPasswordController.clear();
+                      Navigator.pop(context); // 로그인 페이지로 돌아가기
                     },
                   ),
                   ElevatedButton(
