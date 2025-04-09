@@ -30,14 +30,13 @@ class HomePage extends StatelessWidget {
 
     final ThemeData theme = Theme.of(context);
     final NumberFormat formatter = NumberFormat.simpleCurrency(
-        locale: Localizations.localeOf(context).toString());
+      locale: Localizations.localeOf(context).toString(),
+    );
 
     return products.map((product) {
       return Card(
         clipBehavior: Clip.antiAlias,
-        // TODO: Adjust card heights (103)
         child: Column(
-          // TODO: Center items on the card (103)
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             AspectRatio(
@@ -52,11 +51,8 @@ class HomePage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
                 child: Column(
-                  // TODO: Align labels to the bottom and center (103)
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  // TODO: Change innermost Column (103)
                   children: <Widget>[
-                    // TODO: Handle overflowing labels (103)
                     Text(
                       product.name,
                       style: theme.textTheme.titleLarge,
@@ -77,19 +73,15 @@ class HomePage extends StatelessWidget {
     }).toList();
   }
 
-  // TODO: Add a variable for Category (104)
   @override
   Widget build(BuildContext context) {
-    // TODO: Return an AsymmetricView (104)
-    // TODO: Pass Category variable to AsymmetricView (104)
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.menu,
-            semanticLabel: 'menu',
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
           ),
-          onPressed: () {},
         ),
         title: const Text('SHRINE'),
         actions: <Widget>[
@@ -98,7 +90,9 @@ class HomePage extends StatelessWidget {
               Icons.search,
               semanticLabel: 'search',
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/search');
+            },
           ),
           IconButton(
             icon: const Icon(
@@ -109,6 +103,63 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+
+      // 👇 Drawer 메뉴
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Pages',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pushNamed(context, '/home');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.search),
+              title: const Text('Search'),
+              onTap: () {
+                Navigator.pushNamed(context, '/search');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.location_city),
+              title: const Text('Favorite Hotels'),
+              onTap: () {
+                Navigator.pushNamed(context, '/favorites');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('My Page'),
+              onTap: () {
+                Navigator.pushNamed(context, '/mypage');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+                Navigator.pushNamed(context, '/login');
+              },
+            ),
+          ],
+        ),
+      ),
+
       body: GridView.count(
         crossAxisCount: 2,
         padding: const EdgeInsets.all(16.0),
