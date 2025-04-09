@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:shrine/detail.dart';
 import 'package:shrine/favorite.dart';
 import 'package:shrine/my.dart';
 import 'package:shrine/search.dart';
@@ -36,6 +37,7 @@ class ShrineApp extends StatelessWidget {
         '/favorites': (context) => const FavoriteHotelsPage(),
         '/mypage': (context) => const MyPage(),
         '/signup': (BuildContext context) => const SignUpPage(),
+        '/detail': (BuildContext context) => const DetailPage(),
       },
       theme: ThemeData.light(useMaterial3: true),
     );

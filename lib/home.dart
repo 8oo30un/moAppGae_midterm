@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'model/product.dart';
 import 'model/products_repository.dart';
@@ -22,9 +21,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     final ThemeData theme = Theme.of(context);
-    final NumberFormat formatter = NumberFormat.simpleCurrency(
-      locale: Localizations.localeOf(context).toString(),
-    );
+    // Removed unused formatter variable
 
     return products.map((product) {
       return Card(
@@ -68,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 2.0),
                     Text(
                       product.location, // Add location to product data
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 8.0,
                       ),
                     ),
@@ -78,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.pushNamed(context, '/detail',
                             arguments: product);
                       },
-                      child: Text(
+                      child: const Text(
                         'more',
                         style: TextStyle(
                           fontWeight: FontWeight.w900,
@@ -87,25 +84,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     )
-                    // Align(
-                    //   alignment: Alignment.bottomRight, // 오른쪽 하단에 배치
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.all(8.0), // 여백을 주어 버튼을 살짝 띄움
-                    //     child: TextButton(
-                    //       onPressed: () {
-                    //         Navigator.pushNamed(context, '/detail',
-                    //             arguments: product);
-                    //       },
-                    //       child: const Text(
-                    //         'more',
-                    //         style: TextStyle(
-                    //           fontSize: 10.0, // 텍스트 크기 작게 설정
-                    //           color: Colors.blue, // 파란색 텍스트
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -124,41 +102,73 @@ class _HomePageState extends State<HomePage> {
     }
 
     final ThemeData theme = Theme.of(context);
-    final NumberFormat formatter = NumberFormat.simpleCurrency(
-      locale: Localizations.localeOf(context).toString(),
-    );
 
     return products.map((product) {
-      return ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        leading: Image.asset(
-          product.assetName,
-          package: product.assetPackage,
-          width: 50.0,
-          height: 50.0,
-          fit: BoxFit.cover,
-        ),
-        title: Text(
-          product.name,
-          style: theme.textTheme.titleLarge,
-        ),
-        subtitle: Row(
-          children: <Widget>[
-            Icon(Icons.star, color: Colors.amber),
-            const Text('4.5'), // Add dynamic star rating
-            const SizedBox(width: 8.0),
-            Text(
-              product.location, // Add location to product data
-              style: theme.textTheme.bodyMedium,
-            ),
-          ],
-        ),
-        trailing: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/detail', arguments: product);
-          },
-          child: const Text('More'),
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          child: Row(
+            children: <Widget>[
+              // 왼쪽: 호텔 이미지
+              Image.asset(
+                product.assetName,
+                package: product.assetPackage,
+                width: 100.0,
+                height: 100.0,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(width: 16.0),
+              // 오른쪽: 별점, 호텔 이름, 위치
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // 별점
+                    Row(
+                      children: <Widget>[
+                        for (int i = 0; i < 5; i++)
+                          Icon(
+                            i < 4
+                                ? Icons.star
+                                : Icons.star_half, // 4개 별은 전체 별, 마지막은 반 별
+                            color: Colors.amber,
+                            size: 16.0,
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 4.0),
+                    // 호텔 이름
+                    Text(
+                      product.name,
+                      style: theme.textTheme.labelSmall
+                          ?.copyWith(fontWeight: FontWeight.w900),
+                      maxLines: 1,
+                    ),
+                    const SizedBox(height: 4.0),
+                    // 위치
+                    Text(
+                      product.location,
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/detail', arguments: product);
+                },
+                child: const Text(
+                  'more',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 10.0, // 텍스트 크기 작게 설정
+                    color: Colors.blue, // 파란색 텍스트
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       );
     }).toList();
@@ -175,9 +185,11 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        title: const Center(
-          child: Text('Main'),
+        title: const Text(
+          'Main',
+          textAlign: TextAlign.center, // 텍스트 중앙 정렬
         ),
+        centerTitle: true, // 이 속성 추가로 title을 중앙에 배치
         actions: <Widget>[
           IconButton(
             icon: const Icon(
@@ -258,17 +270,28 @@ class _HomePageState extends State<HomePage> {
 
       body: Column(
         children: <Widget>[
-          ToggleButtons(
-            children: const <Widget>[
-              Icon(Icons.grid_on),
-              Icon(Icons.list),
-            ],
-            isSelected: [_isGridView, !_isGridView],
-            onPressed: (int index) {
-              setState(() {
-                _isGridView = index == 0;
-              });
-            },
+          Padding(
+            padding: const EdgeInsets.all(8.0), // Add padding if needed
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end, // Left align
+              children: <Widget>[
+                ToggleButtons(
+                  children: const <Widget>[
+                    Icon(Icons.grid_on),
+                    Icon(Icons.list),
+                  ],
+                  isSelected: [
+                    _isGridView,
+                    !_isGridView
+                  ], // Replace with your state
+                  onPressed: (int index) {
+                    setState(() {
+                      _isGridView = index == 0;
+                    });
+                  }, // Handle onPressed logic if needed
+                ),
+              ],
+            ),
           ),
           Expanded(
             child: LayoutBuilder(
