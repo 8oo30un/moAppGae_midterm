@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
         subtitle: Row(
           children: <Widget>[
             Icon(Icons.star, color: Colors.amber),
-            Text('4.5'), // Add dynamic star rating
+            const Text('4.5'), // Add dynamic star rating
             const SizedBox(width: 8.0),
             Text(
               product.location, // Add location to product data
@@ -168,13 +168,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        title: const Text('SHRINE'),
+        title: const Center(
+          child: Text('Main'),
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(
