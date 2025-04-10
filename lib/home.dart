@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'model/product.dart';
 import 'model/products_repository.dart';
@@ -200,6 +201,16 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
+  // Function to launch URL
+  Future<void> _launchURL() async {
+    const url = 'https://www.handong.edu/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -228,13 +239,8 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           IconButton(
-            icon: const Icon(
-              Icons.language,
-              semanticLabel: 'language',
-            ),
-            onPressed: () {
-              // Handle language change logic
-            },
+            icon: const Icon(Icons.language),
+            onPressed: _launchURL,
           ),
         ],
       ),

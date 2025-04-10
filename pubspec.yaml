@@ -10,9 +10,11 @@ dependencies:
     sdk: flutter
   # flutter_slidable: ^0.6.0
   intl: ^0.17.0
+  lottie: ^2.2.0
 
   cupertino_icons: ^1.0.5
   shrine_images: ^2.0.2
+  url_launcher: ^6.0.10
 
 dev_dependencies:
   flutter_test:

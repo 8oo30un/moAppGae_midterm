@@ -4,7 +4,8 @@ import 'model/product.dart';
 import 'model/products_repository.dart'; // repository import
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key});
+  final Product product;
+  const DetailPage({Key? key, required this.product}) : super(key: key);
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -15,7 +16,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final product = ModalRoute.of(context)!.settings.arguments as Product;
+    final product = widget.product; // 생성자에서 전달된 product를 사용
     final updatedProduct = ProductsRepository().getById(product.id);
 
     return Scaffold(

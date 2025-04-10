@@ -21,6 +21,7 @@ import 'package:shrine/search.dart';
 import 'home.dart';
 import 'login.dart';
 import 'signUp.dart';
+import 'model/product.dart'; // Ensure this file contains the definition of the Product class
 
 class ShrineApp extends StatelessWidget {
   const ShrineApp({Key? key}) : super(key: key);
@@ -35,9 +36,10 @@ class ShrineApp extends StatelessWidget {
         '/': (BuildContext context) => const HomePage(),
         '/search': (context) => const SearchPage(),
         '/favorites': (context) => const FavoriteHotelsPage(),
-        '/mypage': (context) => const MyPage(),
+        '/mypage': (context) => MyPage(),
         '/signup': (context) => const SignUpPage(),
-        '/detail': (context) => const DetailPage(),
+        '/detail': (context) => DetailPage(
+            product: ModalRoute.of(context)!.settings.arguments as Product),
       },
       theme: ThemeData.light(useMaterial3: true),
     );
