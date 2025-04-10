@@ -21,7 +21,7 @@ class ProductsRepository {
       id: 1,
       isFeatured: true,
       name: 'Stella sunglasses',
-      starCount: 3,
+      starCount: 4,
       location: 'New York',
       phoneNumber: '123-456-7890',
       description:
@@ -31,7 +31,7 @@ class ProductsRepository {
       id: 2,
       isFeatured: false,
       name: 'Whitney belt',
-      starCount: 3,
+      starCount: 4.5,
       location: 'New York',
       phoneNumber: '123-456-7890',
       description:
