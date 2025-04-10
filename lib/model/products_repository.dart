@@ -108,5 +108,25 @@ class ProductsRepository {
     }
   }
 
+  List<Product> getFeaturedProducts() {
+    return _products.where((product) => product.isFeatured).toList();
+  }
+
+  void unfeatureProductById(int id) {
+    final index = _products.indexWhere((p) => p.id == id);
+    if (index != -1) {
+      final old = _products[index];
+      _products[index] = Product(
+        id: old.id,
+        isFeatured: false,
+        name: old.name,
+        location: old.location,
+        phoneNumber: old.phoneNumber,
+        description: old.description,
+        starCount: old.starCount,
+      );
+    }
+  }
+
   Product getById(int id) => _products.firstWhere((p) => p.id == id);
 }
