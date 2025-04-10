@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'model/product.dart';
+import 'model/products_repository.dart'; // repository import
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
     final product = ModalRoute.of(context)!.settings.arguments as Product;
+    final updatedProduct = ProductsRepository().getById(product.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -19,14 +28,37 @@ class DetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Hero(
-              tag: 'productImage_${product.id}',
-              child: Image.asset(
-                product.assetName,
-                package: product.assetPackage,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+            Stack(
+              children: [
+                Hero(
+                  tag: 'productImage_${product.id}',
+                  child: Image.asset(
+                    product.assetName,
+                    package: product.assetPackage,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 16.0,
+                  right: 16.0,
+                  child: InkWell(
+                    onDoubleTap: () {
+                      setState(() {
+                        ProductsRepository().toggleIsFeatured(product.id);
+                      });
+                    },
+                    child: Icon(
+                      updatedProduct.isFeatured
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color:
+                          updatedProduct.isFeatured ? Colors.red : Colors.white,
+                      size: 30.0,
+                    ),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),

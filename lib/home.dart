@@ -14,7 +14,8 @@ class _HomePageState extends State<HomePage> {
   bool _isGridView = true; // To toggle between GridView and ListView
 
   List<Card> _buildGridCards(BuildContext context) {
-    List<Product> products = ProductsRepository.loadProducts();
+    final repository = ProductsRepository();
+    List<Product> products = repository.getAllProducts();
 
     if (products.isEmpty) {
       return const <Card>[];
@@ -105,7 +106,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> _buildListCards(BuildContext context) {
-    List<Product> products = ProductsRepository.loadProducts();
+    final repository = ProductsRepository();
+    List<Product> products = repository.getAllProducts();
 
     if (products.isEmpty) {
       return const <Widget>[];
