@@ -63,10 +63,6 @@ class ProductCard extends StatelessWidget {
                 maxLines: 1,
               ),
               const SizedBox(height: 4.0),
-              Text(
-                formatter.format(product.price),
-                style: theme.textTheme.bodySmall,
-              ),
             ],
           ),
         ),

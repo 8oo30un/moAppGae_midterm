@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   bool _isGridView = true; // To toggle between GridView and ListView
 
   List<Card> _buildGridCards(BuildContext context) {
-    List<Product> products = ProductsRepository.loadProducts(Category.all);
+    List<Product> products = ProductsRepository.loadProducts();
 
     if (products.isEmpty) {
       return const <Card>[];
@@ -45,16 +45,18 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     const SizedBox(height: 1.0),
                     Row(
-                      children: <Widget>[
-                        for (int i = 0; i < 5; i++)
-                          Icon(
-                            i < 4
-                                ? Icons.star
-                                : Icons.star_half, // 4개 별은 전체 별, 마지막은 반 별
-                            color: Colors.amber,
-                            size: 12.0, // 별 크기
-                          ),
-                      ],
+                      children: List.generate(5, (index) {
+                        if (index < product.starCount.floor()) {
+                          return const Icon(Icons.star,
+                              color: Colors.amber, size: 12.0);
+                        } else if (index < product.starCount &&
+                            product.starCount % 1 != 0) {
+                          return const Icon(Icons.star_half,
+                              color: Colors.amber, size: 12.0);
+                        } else {
+                          return const SizedBox.shrink(); // 빈 별은 표시하지 않음
+                        }
+                      }),
                     ),
                     Text(
                       product.name,
@@ -103,7 +105,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> _buildListCards(BuildContext context) {
-    List<Product> products = ProductsRepository.loadProducts(Category.all);
+    List<Product> products = ProductsRepository.loadProducts();
 
     if (products.isEmpty) {
       return const <Widget>[];
@@ -124,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                 package: product.assetPackage,
                 width: 100.0,
                 height: 100.0,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
               const SizedBox(width: 16.0),
               // 오른쪽: 별점, 호텔 이름, 위치
@@ -134,16 +136,18 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     // 별점
                     Row(
-                      children: <Widget>[
-                        for (int i = 0; i < 5; i++)
-                          Icon(
-                            i < 4
-                                ? Icons.star
-                                : Icons.star_half, // 4개 별은 전체 별, 마지막은 반 별
-                            color: Colors.amber,
-                            size: 16.0,
-                          ),
-                      ],
+                      children: List.generate(5, (index) {
+                        if (index < product.starCount.floor()) {
+                          return const Icon(Icons.star,
+                              color: Colors.amber, size: 12.0);
+                        } else if (index < product.starCount &&
+                            product.starCount % 1 != 0) {
+                          return const Icon(Icons.star_half,
+                              color: Colors.amber, size: 12.0);
+                        } else {
+                          return const SizedBox.shrink(); // 빈 별은 표시하지 않음
+                        }
+                      }),
                     ),
                     const SizedBox(height: 4.0),
                     // 호텔 이름
@@ -159,22 +163,34 @@ class _HomePageState extends State<HomePage> {
                       product.location,
                       style: theme.textTheme.bodyMedium,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/detail',
+                                arguments: product,
+                              );
+                            },
+                            child: const Text(
+                              'more',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 10.0,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/detail', arguments: product);
-                },
-                child: const Text(
-                  'more',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 10.0, // 텍스트 크기 작게 설정
-                    color: Colors.blue, // 파란색 텍스트
-                  ),
-                ),
-              )
             ],
           ),
         ),
@@ -187,6 +203,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
+        foregroundColor: Colors.white, // <-- 텍스트와 아이콘 색상 일괄 설정
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -237,40 +254,49 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pushNamed(context, '/');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.search),
-              title: const Text('Search'),
-              onTap: () {
-                Navigator.pushNamed(context, '/search');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_city),
-              title: const Text('Favorite Hotels'),
-              onTap: () {
-                Navigator.pushNamed(context, '/favorites');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('My Page'),
-              onTap: () {
-                Navigator.pushNamed(context, '/mypage');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pushNamed(context, '/login');
-              },
+            // 여기부터 ListTileTheme 적용
+            ListTileTheme(
+              iconColor: Colors.blue, // 아이콘 색상
+              textColor: Colors.blue, // 텍스트 색상
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.home),
+                    title: const Text('Home'),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/');
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.search),
+                    title: const Text('Search'),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/search');
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.location_city),
+                    title: const Text('Favorite Hotels'),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/favorites');
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.person),
+                    title: const Text('My Page'),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/mypage');
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.logout),
+                    title: const Text('Logout'),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),

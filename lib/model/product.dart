@@ -12,29 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-enum Category {
-  all,
-  accessories,
-  clothing,
-  home,
-}
-
 class Product {
   const Product({
-    required this.category,
     required this.id,
     required this.isFeatured,
     required this.name,
-    required this.price,
     required this.location,
+    required this.starCount,
+    required this.phoneNumber,
+    required this.description,
   });
 
-  final Category category;
   final int id;
   final bool isFeatured;
   final String name;
-  final int price;
   final String location; // Add location to product data
+  final String phoneNumber; // Add phone number to product data
+  final String description; // Add description to product data
+  final double starCount;
 
   String get assetName => '$id-0.jpg';
   String get assetPackage => 'shrine_images';
