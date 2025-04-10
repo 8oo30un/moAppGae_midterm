@@ -17,7 +17,6 @@ class _SearchPageState extends State<SearchPage> {
 
   // 날짜
   DateTime? checkInDate;
-  DateTime? checkOutDate;
 
   // ExpansionPanel 상태
   bool filterExpanded = false;
@@ -30,12 +29,10 @@ class _SearchPageState extends State<SearchPage> {
       firstDate: DateTime(2024),
       lastDate: DateTime(2026),
     );
-    if (picked != null) {
+    if (picked != null && picked != checkInDate) {
       setState(() {
         if (isCheckIn) {
-          checkInDate = picked;
-        } else {
-          checkOutDate = picked;
+          checkInDate = picked; // 선택된 날짜를 checkInDate에 저장
         }
       });
     }
@@ -45,37 +42,73 @@ class _SearchPageState extends State<SearchPage> {
     String selectedFilters = filters.entries
         .where((entry) => entry.value)
         .map((entry) => entry.key)
-        .join(', ');
+        .join('/ ');
+
+    // 다이얼로그를 띄우기 전에 checkInDate가 최신값인지 확인
+    String checkInDateString = checkInDate != null
+        ? checkInDate!.toString().split(' ')[0]
+        : 'Not selected';
 
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text(
-          'Please check your choice :)',
-          style: TextStyle(color: Colors.white),
+        titlePadding: const EdgeInsets.all(0),
+        title: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+          ),
+          child: const Text(
+            'Please check your choice :)',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
         ),
-        titlePadding: EdgeInsets.all(16.0),
-        titleTextStyle:
-            const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        backgroundColor: Colors.blue, // 파란색 배경
+        backgroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(0.0),
+            bottomRight: Radius.circular(0.0),
+          ),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Filters: ${selectedFilters.isNotEmpty ? selectedFilters : "None"}',
-              style: const TextStyle(fontSize: 16),
+            const SizedBox(height: 15),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(Icons.filter_list, color: Colors.blue),
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: Text(
+                    selectedFilters.isNotEmpty ? selectedFilters : "None",
+                    style: const TextStyle(fontSize: 16),
+                    softWrap: true,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(Icons.calendar_today, color: Colors.blue),
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: Text(
+                    'IN   $checkInDateString',
+                    style: const TextStyle(fontSize: 16),
+                    softWrap: true,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'Check-in: ${checkInDate != null ? checkInDate.toString().split(' ')[0] : "Not selected"}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Check-out: ${checkOutDate != null ? checkOutDate.toString().split(' ')[0] : "Not selected"}',
-              style: const TextStyle(fontSize: 16),
-            ),
           ],
         ),
         actions: [
@@ -84,12 +117,15 @@ class _SearchPageState extends State<SearchPage> {
             children: [
               TextButton(
                 onPressed: () {
-                  // Search 버튼 클릭 시 추가 동작
                   Navigator.of(context).pop();
                 },
                 child: const Text('Search'),
                 style: TextButton.styleFrom(
-                  foregroundColor: Colors.blue,
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
                 ),
               ),
               TextButton(
@@ -98,7 +134,11 @@ class _SearchPageState extends State<SearchPage> {
                 },
                 child: const Text('Cancel'),
                 style: TextButton.styleFrom(
-                  foregroundColor: Colors.blue,
+                  backgroundColor: Colors.grey[400],
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
                 ),
               ),
             ],
@@ -136,9 +176,8 @@ class _SearchPageState extends State<SearchPage> {
                 body: Column(
                   children: filters.keys.map((key) {
                     return Center(
-                      // 중앙 정렬
                       child: SizedBox(
-                        width: 250, // 고정 너비를 지정해서 수직 정렬 맞춤
+                        width: 250,
                         child: CheckboxListTile(
                           value: filters[key],
                           onChanged: (value) {
@@ -146,15 +185,14 @@ class _SearchPageState extends State<SearchPage> {
                               filters[key] = value ?? false;
                             });
                           },
-                          activeColor: Colors.blue, // 파란색 체크
+                          activeColor: Colors.blue,
                           title: Text(
                             key,
                             style: const TextStyle(fontSize: 16),
                           ),
-                          controlAffinity:
-                              ListTileControlAffinity.leading, // 체크박스를 텍스트 왼쪽에
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 0), // 여백 제거
+                          controlAffinity: ListTileControlAffinity.leading,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 0),
                         ),
                       ),
                     );
@@ -177,14 +215,6 @@ class _SearchPageState extends State<SearchPage> {
                             : 'Not selected'),
                         trailing: const Icon(Icons.calendar_today),
                         onTap: () => _selectDate(context, true),
-                      ),
-                      ListTile(
-                        title: const Text('Check-out Date'),
-                        subtitle: Text(checkOutDate != null
-                            ? checkOutDate.toString().split(' ')[0]
-                            : 'Not selected'),
-                        trailing: const Icon(Icons.calendar_today),
-                        onTap: () => _selectDate(context, false),
                       ),
                     ],
                   ),
