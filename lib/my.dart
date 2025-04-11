@@ -1,60 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart'; // Lottie 애니메이션 사용
+import 'package:lottie/lottie.dart';
 import 'model/product.dart';
 import 'detail.dart'; // 호텔 상세 페이지
 import 'model/products_repository.dart'; // ProductsRepository import
 
-class MyPage extends StatelessWidget {
-  // ProductsRepository 인스턴스를 가져와서, isFeatured가 true인 호텔만 필터링
-  final List<Product> favoriteHotels =
-      ProductsRepository().getFeaturedProducts();
+class MyPage extends StatefulWidget {
+  @override
+  _MyPageState createState() => _MyPageState();
+}
+
+class _MyPageState extends State<MyPage> {
+  List<Product> favoriteHotels =
+      ProductsRepository().getFeaturedProducts(); // 초기화
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'My Page',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('My Page', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // 프로필 이미지, 이름, 학번
           const SizedBox(height: 16),
+          // 프로필 이미지, 이름, 학번
           Container(
             width: 150,
             height: 150,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.grey, // 테두리 색상
-                width: 1.0, // 테두리 두께
-              ),
+              border: Border.all(color: Colors.grey, width: 1.0),
             ),
             child: ClipOval(
-              child: Lottie.asset(
-                'assets/lottie.json', // Lottie 애니메이션 경로
-                fit: BoxFit.cover,
-              ),
+              child: Lottie.asset('assets/lottie.json', fit: BoxFit.cover),
             ),
           ),
           const SizedBox(height: 16),
-          const Text(
-            '김우현', // 이름
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const Text(
-            '22100157', // 학번
-            style: TextStyle(fontSize: 18),
-          ),
+          const Text('김우현',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          const Text('22100157', style: TextStyle(fontSize: 18)),
           const SizedBox(height: 32),
-          // "My Favorite Hotel List" 텍스트
           const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -75,28 +62,34 @@ class MyPage extends StatelessWidget {
                 final hotel = favoriteHotels[index];
                 return Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                      borderRadius: BorderRadius.circular(10)),
                   clipBehavior: Clip.antiAlias,
                   child: Stack(
                     children: [
                       InkWell(
-                        onTap: () {
-                          print(
-                              'Navigating to DetailPage with product: ${hotel.name}, id: ${hotel.id}');
-
-                          Navigator.push(
+                        onTap: () async {
+                          // DetailPage로 이동하고, 반환된 데이터를 받아옴
+                          final updatedHotel = await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailPage(
-                                product: hotel, // 호텔 상세 페이지로 이동
-                              ),
+                              builder: (context) => DetailPage(product: hotel),
                             ),
                           );
+
+                          if (updatedHotel != null) {
+                            setState(() {
+                              // 반환된 hotel을 업데이트
+                              final index = favoriteHotels
+                                  .indexWhere((h) => h.id == updatedHotel.id);
+                              if (index != -1) {
+                                favoriteHotels[index] = updatedHotel;
+                              }
+                            });
+                          }
                         },
                         child: Image.asset(
                           hotel.assetName,
-                          package: hotel.assetPackage,
+                          // package: hotel.assetPackage,
                           width: double.infinity,
                           height: 180,
                           fit: BoxFit.cover,

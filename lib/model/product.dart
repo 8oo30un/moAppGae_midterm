@@ -21,6 +21,7 @@ class Product {
     required this.starCount,
     required this.phoneNumber,
     required this.description,
+    required this.url,
   });
 
   final int id;
@@ -30,9 +31,10 @@ class Product {
   final String phoneNumber; // Add phone number to product data
   final String description; // Add description to product data
   final double starCount;
+  final String url; // 이미지 경로
 
-  String get assetName => '$id-0.jpg';
-  String get assetPackage => 'shrine_images';
+  String get assetName => url; // 이미지 경로 반환
+  // String get assetPackage => 'assets';
 
   @override
   String toString() => "$name (id=$id)";

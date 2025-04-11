@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               aspectRatio: 18 / 11,
               child: Image.asset(
                 product.assetName,
-                package: product.assetPackage,
+                // package: product.assetPackage,
                 fit: BoxFit.fitWidth,
               ),
             ),
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
               // 왼쪽: 호텔 이미지
               Image.asset(
                 product.assetName,
-                package: product.assetPackage,
+                // package: product.assetPackage,
                 width: 100.0,
                 height: 100.0,
                 fit: BoxFit.fill,

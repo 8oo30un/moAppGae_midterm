@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'model/product.dart';
-import 'model/products_repository.dart'; // repository import
+import 'model/products_repository.dart';
 
 class DetailPage extends StatefulWidget {
   final Product product;
@@ -12,12 +12,17 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  bool isFavorite = false;
+  late bool isFavorite;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = widget.product.isFeatured; // 초기 값 설정
+  }
 
   @override
   Widget build(BuildContext context) {
-    final product = widget.product; // 생성자에서 전달된 product를 사용
-    final updatedProduct = ProductsRepository().getById(product.id);
+    final product = widget.product;
 
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +40,7 @@ class _DetailPageState extends State<DetailPage> {
                   tag: 'productImage_${product.id}',
                   child: Image.asset(
                     product.assetName,
-                    package: product.assetPackage,
+                    // package: product.assetPackage,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -46,15 +51,14 @@ class _DetailPageState extends State<DetailPage> {
                   child: InkWell(
                     onDoubleTap: () {
                       setState(() {
-                        ProductsRepository().toggleIsFeatured(product.id);
+                        isFavorite = !isFavorite; // 상태 반전
+                        ProductsRepository()
+                            .toggleIsFeatured(product.id); // 데이터 변경
                       });
                     },
                     child: Icon(
-                      updatedProduct.isFeatured
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color:
-                          updatedProduct.isFeatured ? Colors.red : Colors.white,
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? Colors.red : Colors.white,
                       size: 30.0,
                     ),
                   ),
@@ -76,7 +80,7 @@ class _DetailPageState extends State<DetailPage> {
                         return const Icon(Icons.star_half,
                             color: Colors.amber, size: 16);
                       } else {
-                        return const SizedBox.shrink(); // 빈 별 숨김
+                        return const SizedBox.shrink();
                       }
                     }),
                   ),
@@ -100,12 +104,8 @@ class _DetailPageState extends State<DetailPage> {
                       const Icon(Icons.location_on,
                           size: 16, color: Colors.lightBlue),
                       const SizedBox(width: 4),
-                      Text(
-                        product.location,
-                        style: const TextStyle(
-                          color: Colors.lightBlue,
-                        ),
-                      ),
+                      Text(product.location,
+                          style: const TextStyle(color: Colors.lightBlue)),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -114,26 +114,16 @@ class _DetailPageState extends State<DetailPage> {
                       const Icon(Icons.phone,
                           size: 16, color: Colors.lightBlue),
                       const SizedBox(width: 4),
-                      Text(
-                        product.phoneNumber,
-                        style: const TextStyle(
-                          color: Colors.lightBlue,
-                        ),
-                      ),
+                      Text(product.phoneNumber,
+                          style: const TextStyle(color: Colors.lightBlue)),
                     ],
                   ),
-                  const Divider(
-                    color: Colors.blue, // 구분선 색상
-                    thickness: 1, // 구분선 두께
-                    height: 20, // 구분선 높이
-                  ),
+                  const Divider(color: Colors.blue, thickness: 1, height: 20),
                   Text(
                       product.description ??
                           'This is a wonderful hotel with great amenities.',
                       style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.lightBlue,
-                      )),
+                          fontSize: 16, color: Colors.lightBlue)),
                 ],
               ),
             ),
