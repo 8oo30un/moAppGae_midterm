@@ -67,15 +67,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 12.0),
               TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  labelText: 'Email Address',
-                ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 12.0),
-              TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(
                   filled: true,
@@ -94,20 +85,31 @@ class _SignUpPageState extends State<SignUpPage> {
                 obscureText: true,
                 validator: _validateConfirmPassword, // 비밀번호 확인 검증 추가
               ),
+              const SizedBox(height: 12.0),
+              TextFormField(
+                controller: _emailController,
+                decoration: const InputDecoration(
+                  filled: true,
+                  labelText: 'Email Address',
+                ),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Email cannot be empty';
+                  }
+                  final RegExp emailRegExp = RegExp(
+                    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                  );
+                  if (!emailRegExp.hasMatch(value)) {
+                    return 'Enter a valid email address';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 24.0),
               OverflowBar(
                 alignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  TextButton(
-                    child: const Text('CANCEL'),
-                    onPressed: () {
-                      // _usernameController.clear();
-                      // _emailController.clear();
-                      // _passwordController.clear();
-                      // _confirmPasswordController.clear();
-                      Navigator.pop(context); // 로그인 페이지로 돌아가기
-                    },
-                  ),
                   ElevatedButton(
                     child: const Text('SIGN UP'),
                     onPressed: () {

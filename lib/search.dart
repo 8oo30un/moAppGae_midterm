@@ -68,36 +68,61 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       );
                     },
-                    body: Column(
-                      children: [
-                        CheckboxListTile(
-                          title: const Text('No Kids Zone'),
-                          value: _filterValues[0],
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _filterValues[0] = value!;
-                            });
-                          },
-                        ),
-                        CheckboxListTile(
-                          title: const Text('Pet-Friendly'),
-                          value: _filterValues[1],
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _filterValues[1] = value!;
-                            });
-                          },
-                        ),
-                        CheckboxListTile(
-                          title: const Text('Free breakfast'),
-                          value: _filterValues[2],
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _filterValues[2] = value!;
-                            });
-                          },
-                        ),
-                      ],
+                    body: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min, // 세로 방향 중앙 정렬
+                        children: [
+                          SizedBox(
+                            width: 220, // 원하는 너비로 제한
+                            child: CheckboxListTile(
+                              controlAffinity:
+                                  ListTileControlAffinity.leading, // 체크박스 왼쪽
+                              title: const Align(
+                                alignment: Alignment.center, // 텍스트 가운데 정렬
+                                child: Text('No Kids Zone'),
+                              ),
+                              value: _filterValues[0],
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _filterValues[0] = value!;
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 220,
+                            child: CheckboxListTile(
+                              controlAffinity: ListTileControlAffinity.leading,
+                              title: const Align(
+                                alignment: Alignment.center,
+                                child: Text('Pet-Friendly'),
+                              ),
+                              value: _filterValues[1],
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _filterValues[1] = value!;
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 220,
+                            child: CheckboxListTile(
+                              controlAffinity: ListTileControlAffinity.leading,
+                              title: const Align(
+                                alignment: Alignment.center,
+                                child: Text('Free breakfast'),
+                              ),
+                              value: _filterValues[2],
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _filterValues[2] = value!;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     isExpanded: _isExpand[0],
                     canTapOnHeader: true,
@@ -310,7 +335,7 @@ class _SearchPageState extends State<SearchPage> {
                                       const EdgeInsets.fromLTRB(22.5, 8, 20, 8),
                                   child: ElevatedButton(
                                     child: const Text(
-                                      'OK',
+                                      'Search',
                                       style: TextStyle(
                                         color: Colors.white,
                                       ),

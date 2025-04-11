@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'model/product.dart';
 import 'detail.dart'; // 호텔 상세 페이지
-import 'model/products_repository.dart'; // ProductsRepository import
+import 'model/products_repository.dart';
 
 class MyPage extends StatefulWidget {
+  const MyPage({super.key});
+
   @override
   _MyPageState createState() => _MyPageState();
 }
@@ -89,7 +91,6 @@ class _MyPageState extends State<MyPage> {
                         },
                         child: Image.asset(
                           hotel.assetName,
-                          // package: hotel.assetPackage,
                           width: double.infinity,
                           height: 180,
                           fit: BoxFit.cover,

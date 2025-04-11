@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                 const Text('SHRINE'),
               ],
             ),
-            const SizedBox(height: 12.0),
+            const SizedBox(height: 200.0),
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(

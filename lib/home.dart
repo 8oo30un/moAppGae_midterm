@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _isGridView = true; // To toggle between GridView and ListView
+  bool _isGridView = true;
 
   List<Card> _buildGridCards(BuildContext context) {
     final repository = ProductsRepository();
@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
     }
 
     final ThemeData theme = Theme.of(context);
-    // Removed unused formatter variable
 
     return products.map((product) {
       return Card(
@@ -35,7 +34,6 @@ class _HomePageState extends State<HomePage> {
               aspectRatio: 18 / 11,
               child: Image.asset(
                 product.assetName,
-                // package: product.assetPackage,
                 fit: BoxFit.fitWidth,
               ),
             ),
@@ -68,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: 2.0),
                     Text(
-                      product.location, // Add location to product data
+                      product.location,
                       style: const TextStyle(
                         fontSize: 8.0,
                       ),
@@ -126,7 +124,6 @@ class _HomePageState extends State<HomePage> {
               // 왼쪽: 호텔 이미지
               Image.asset(
                 product.assetName,
-                // package: product.assetPackage,
                 width: 100.0,
                 height: 100.0,
                 fit: BoxFit.fill,
@@ -201,7 +198,6 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
-  // Function to launch URL
   Future<void> _launchURL() async {
     const url = 'https://www.handong.edu/';
     if (await canLaunch(url)) {

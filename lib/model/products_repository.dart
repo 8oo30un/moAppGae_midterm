@@ -20,7 +20,7 @@ class ProductsRepository {
     ),
     const Product(
       id: 1,
-      isFeatured: false,
+      isFeatured: true,
       name: 'Skyline Retreat',
       starCount: 4.0,
       location: 'Gonzalesstad',

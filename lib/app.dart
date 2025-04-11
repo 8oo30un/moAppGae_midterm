@@ -21,7 +21,7 @@ import 'package:shrine/search.dart';
 import 'home.dart';
 import 'login.dart';
 import 'signUp.dart';
-import 'model/product.dart'; // Ensure this file contains the definition of the Product class
+import 'model/product.dart';
 
 class ShrineApp extends StatelessWidget {
   const ShrineApp({Key? key}) : super(key: key);

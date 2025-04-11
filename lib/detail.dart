@@ -119,9 +119,7 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ),
                   const Divider(color: Colors.blue, thickness: 1, height: 20),
-                  Text(
-                      product.description ??
-                          'This is a wonderful hotel with great amenities.',
+                  Text(product.description,
                       style: const TextStyle(
                           fontSize: 16, color: Colors.lightBlue)),
                 ],

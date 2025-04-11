@@ -27,14 +27,13 @@ class Product {
   final int id;
   final bool isFeatured;
   final String name;
-  final String location; // Add location to product data
-  final String phoneNumber; // Add phone number to product data
-  final String description; // Add description to product data
+  final String location;
+  final String phoneNumber;
+  final String description;
   final double starCount;
   final String url; // 이미지 경로
 
   String get assetName => url; // 이미지 경로 반환
-  // String get assetPackage => 'assets';
 
   @override
   String toString() => "$name (id=$id)";
