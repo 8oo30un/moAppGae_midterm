@@ -20,7 +20,7 @@ class ProductsRepository {
     ),
     const Product(
       id: 1,
-      isFeatured: true,
+      isFeatured: false,
       name: 'Skyline Retreat',
       starCount: 4.0,
       location: 'Gonzalesstad',
@@ -64,7 +64,7 @@ class ProductsRepository {
     ),
     const Product(
       id: 5,
-      isFeatured: true,
+      isFeatured: false,
       name: 'Golden Bay Resort',
       starCount: 4.7,
       location: 'Port Mark',
@@ -86,7 +86,7 @@ class ProductsRepository {
     ),
     const Product(
       id: 7,
-      isFeatured: true,
+      isFeatured: false,
       name: 'Royal Horizon',
       starCount: 3.8,
       location: 'South Christopher',
